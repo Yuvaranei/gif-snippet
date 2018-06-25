@@ -206,6 +206,7 @@ export default class App extends Component {
                         </div>
                         {imageSrc && (
                             <div className="subContainer__outputContainer">
+                                <button className="subContainer__button" onClick={ () => window.location.reload()} >Reset</button>
                                 <a className="subContainer__button" href={imageSrc} download="snippet.gif">Download</a>
                                 <img className="subContainer__outputContainer__img" src={imageSrc}  ref={(element) => { this.outputContainer = element; }}/>
                             </div>
