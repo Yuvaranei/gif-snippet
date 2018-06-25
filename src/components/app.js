@@ -174,6 +174,8 @@ export default class App extends Component {
                                    {modeOptions}
                                 </select>
                                 <button className="subContainer__button" onClick={this.getGif} >Get gifs</button>
+                                <button className="subContainer__button" onClick={ () => window.location.reload()} >Reset</button>
+
                             </div>
                             <div id="capture" className="subContainer__inputTextArea">
                                 <AceEditor
