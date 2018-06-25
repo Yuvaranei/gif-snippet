@@ -39,8 +39,8 @@ export default class App extends Component {
             repeat: props.repeat || 0,
             quality: props.quality || 10
         });
-        this.editorHeight = window.screen.height * 0.6,
-        this.editorWidth = window.screen.width * 0.8
+        this.editorHeight = window.screen.height * 0.55,
+        this.editorWidth = window.screen.width * 0.75
         this.themeFiles = ['ambiance','chaos','chrome','clouds','clouds_midnight','cobalt',
                         +'crimson_editor','dawn','dracula','dreamweaver','eclipse','github',
                         +'gob','gruvbox','idle_fingers','iplastic','katzenmilch','kr_theme',
@@ -67,11 +67,13 @@ export default class App extends Component {
     }
 
     getGif = () => {
+        // console.log(document.querySelector("#capture"));
         domtoimage.toCanvas(document.querySelector("#capture"))
         .then(async(canvas) => {
             this.gif.addFrame(canvas);
             this.gif.on('finished', (blob) => {
                 const image = URL.createObjectURL(blob);
+                console.log(image);
                 this.setState({
                     imageSrc: image
                 });
@@ -101,10 +103,11 @@ export default class App extends Component {
     updateCode = async (newCode, obj) => {
         const node = document.querySelector("#capture");
         const { lines, start, end, action } = obj;
-        if(((String(lines[0]).trim().length === 0) || (lines[0] === '.') || (lines[0] === ',') || (obj.lines[0] === ';'))) {
+        if(((String(lines[0]).trim().length === 0) || (lines[0] === '.') || (lines[0] === ',') || (obj.lines[0] === ';') || (lines[0] === '='))) {
             domtoimage.toCanvas(node)
             .then((canvas) => {
                 this.gif.addFrame(canvas);
+                console.log(canvas);
             })
             .catch(function (error) {
                 console.error('oops, something went wrong!', error);
@@ -124,19 +127,19 @@ export default class App extends Component {
 	render () {
         const { imageSrc, selectValue, code, theme, mode } = this.state;
 
-            let themeOptions = this.themeFiles.map((item,index) => {
+            const themeOptions = this.themeFiles.map((item,index) => {
                 return <option key={index} value={item}>{item}</option>
             })
 
-            let modeOptions = this.modeFiles.map((item,index) => {
+            const modeOptions = this.modeFiles.map((item,index) => {
                 return <option key={index} value={item}>{item}</option>
             })
 
-            let delaySeconds = [];
+            const delaySeconds = [];
             for(let i=0.1;i<1;i+=0.1){
                 delaySeconds.push(i.toFixed(1))
             }
-            let delayOptions = delaySeconds.map((item,index) => {
+            const delayOptions = delaySeconds.map((item,index) => {
                 return <option key={index} value={item}>{`${item}s`}</option>
             })
 
